@@ -1,0 +1,13 @@
+<h1>Register</h1>
+<form (submit) = "registerUser()">
+  Username: <input type="text" name="username" [(ngModel)] = "user.username">
+  Password: <input type="text" name="password" [(ngModel)] = "user.password">
+  <input type="submit" name="submit" value="Register">
+</form>
+
+<h1>Login</h1>
+<form (submit) = "LoginUser()">
+  Username: <input type="text" name="username" [(ngModel)] = "user.logUsername">
+  Password: <input type="text" name="password" [(ngModel)] = "user.logPassword">
+  <input type="submit" name="submit" value="Login">
+</form>
