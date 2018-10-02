@@ -48,9 +48,7 @@ module.exports = {
         } 
         else {
             var user = new User({username: req.body.username, password: hash });
-         }
-        }); //End of bycrpt
-        user.save(function(err, data){
+            user.save(function(err, data){
              if(err){
                 console.log("We have an error!", err);
             }
@@ -59,6 +57,8 @@ module.exports = {
                 console.log('successfully added a user!');
                 res.json(data)
             }
-        }); //end of save
-    }
+            }); //end of save
+        }
+        }); //End of bycrpt
+    }//End of register
 }; //End of exports

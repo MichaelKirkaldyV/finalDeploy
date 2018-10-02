@@ -16,7 +16,7 @@ export class HttpService {
 
   loginService(user){
     console.log("Logging in user..")
-    console.log(author)
+    console.log(user)
   	return this._http.post('/api/login', user)
   }
 
