@@ -7,7 +7,7 @@ module.exports = function(app){
 	app.post('/api/register', apiController.register),
 
 	//retrieves all new tasks
-	app.get('/api/login', apiController.login)
+	app.post('/api/login', apiController.login)
 
 	//Adds name to database
 	

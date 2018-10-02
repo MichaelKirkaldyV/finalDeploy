@@ -9,6 +9,7 @@ module.exports = {
     	User.findOne({username: req.body.username}, function(err, user){
         if(err) {
             console.log("can't login");
+            res.json(err)
         } 
         else {
             if(user){
@@ -24,14 +25,17 @@ module.exports = {
                         req.session.userid = user._id;
                         //check if the user is logged in
                         req.session.isloggedin = true;
+                        res.json(correctpass)
                     } 
                     else {
                         console.log("Incorrect password! Try again.");
+                        res.json(err)
                     } 
                 });
             } 
             else {
                 console.log("User does not exist.");
+                res.json(err)
             } 
         } 
     })
@@ -43,22 +47,24 @@ module.exports = {
 
         //Hashes password
         bcrypt.hash(form_password, 10, function(err, hash) {
-        if(err) {
-            console.log(err);
-        } 
-        else {
-            var user = new User({username: req.body.username, password: hash });
-            user.save(function(err, data){
-             if(err){
-                console.log("We have an error!", err);
-            }
+            if(err) {
+                console.log(err);
+                res.json(err)
+            } 
             else {
-                console.log(data);
-                console.log('successfully added a user!');
-                res.json(data)
+                var user = new User({username: req.body.username, password: hash });
+                user.save(function(err, data){
+                 if(err){
+                    console.log("We have an error!", err);
+                    res.json(err)
+                }
+                else {
+                    console.log(data);
+                    console.log('successfully added a user!');
+                    res.json(data)
+                }
+                }); //end of save
             }
-            }); //end of save
-        }
         }); //End of bycrpt
     }//End of register
 }; //End of exports
