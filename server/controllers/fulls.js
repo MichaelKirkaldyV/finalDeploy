@@ -6,39 +6,42 @@ module.exports = {
 
 	//Finds all Authors on Homepage.
 	login: function(req, res) {
-    	User.findOne({username: req.body.username}, function(err, user){
-        if(err) {
-            console.log("can't login");
-            res.json(err)
-        } 
-        else {
-            if(user){
-                const entered_password = req.body.password;
-                const hashed_password = user.password;
-
-                //compares password from login form to the hashed password saved into the db.
-                //If passwords are correct, set sessions to id and username.
-                bcrypt.compare(entered_password, hashed_password, function(err, correctpass) {
-                    if(correctpass) {
-                        console.log("You're logged in!");
-                        req.session.username = user.username;
-                        req.session.userid = user._id;
-                        //check if the user is logged in
-                        req.session.isloggedin = true;
-                        res.json(correctpass)
-                    } 
-                    else {
-                        console.log("Incorrect password! Try again.");
-                        res.json(err)
-                    } 
-                });
-            } 
-            else {
-                console.log("User does not exist.");
+            console.log("in login controller")
+        	User.findOne({username: req.body.logUsername}, function(err, user){
+            if(err) {
+                console.log("can't login");
                 res.json(err)
             } 
-        } 
-    })
+            else {
+                if(user){
+                    const entered_password = req.body.logPassword;
+                    const hashed_password = user.password;
+
+                    //compares password from login form to the hashed password saved into the db.
+                    //If passwords are correct, set sessions to id and username.
+                    bcrypt.compare(entered_password, hashed_password, function(err, correctpass) {
+                        if(correctpass) {
+                            console.log("You're logged in!");
+                            req.session.username = user.logUsername;
+                            req.session.userid = user._id;
+                            //check if the user is logged in
+                            req.session.isloggedin = true;
+                            res.json(req.session.userid)
+                        } 
+                        else {
+                            console.log("Incorrect password! Try again.");
+                            res.json(err)
+                        } 
+                    });
+                } 
+                else {
+                    console.log("User does not exist.");
+                    res.json(err)
+                } 
+            } 
+        }) 
+        console.log(req.body)
+        res.json(req.body)
     },
 
     register: function(req, res) {

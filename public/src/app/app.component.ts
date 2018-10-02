@@ -9,13 +9,14 @@ import { HttpService } from './http.service';
 
 export class AppComponent implements OnInit {
   user: object;
-  logUser: any;
+  logUser: object;
 
   constructor(private _http: HttpService) { }
 
   ngOnInit() {
   	this.user = {username: "", password: ""}
   	this.logUser = {logUsername: "", logPassword: ""}
+    console.log(this.logUser)
 
   }
 
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
   }
 
   loginUser(user){
-  	let observable = this._http.registerService(this.logUser)
+    console.log(this.logUser)
+  	let observable = this._http.loginService(this.logUser)
   	observable.subscribe(data => {
   	console.log(data)
   	})
