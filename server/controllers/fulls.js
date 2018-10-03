@@ -22,26 +22,25 @@ module.exports = {
                     bcrypt.compare(entered_password, hashed_password, function(err, correctpass) {
                         if(correctpass) {
                             console.log("You're logged in!");
-                            req.session.username = user.logUsername;
+                            req.session.username = user.username;
                             req.session.userid = user._id;
                             //check if the user is logged in
                             req.session.isloggedin = true;
+                            console.log("Here is your session ID.")
                             res.json(req.session.userid)
                         } 
                         else {
                             console.log("Incorrect password! Try again.");
                             res.json(err)
                         } 
-                    });
+                    }); //End of bcrypt
                 } 
                 else {
                     console.log("User does not exist.");
                     res.json(err)
                 } 
             } 
-        }) 
-        console.log(req.body)
-        res.json(req.body)
+        }) //End of db
     },
 
     register: function(req, res) {
