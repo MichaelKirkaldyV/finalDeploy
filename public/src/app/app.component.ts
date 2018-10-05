@@ -1,5 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpService } from './http.service';
+import { ActivatedRoute, RouterOutlet, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -10,13 +12,16 @@ import { HttpService } from './http.service';
 export class AppComponent implements OnInit {
   user: object;
   logUser: object;
-  userSession: object;
+  userSession: any;
+  sessionSwitch: boolean;
 
-  constructor(private _http: HttpService) { }
+  constructor(private _http: HttpService,
+                private _router: Router) { }
 
   ngOnInit() {
   	this.user = {username: "", password: ""}
   	this.logUser = {logUsername: "", logPassword: ""}
+    this.sessionSwitch = false;
 
   }
 
@@ -33,7 +38,11 @@ export class AppComponent implements OnInit {
     console.log("Subscription says")
   	console.log(data)
     this.userSession = data;
-
+    if (!this.userSession){
+      this.sessionSwitch = false;
+    }
+    this.sessionSwitch = true;
+    this._router.navigate(['dashboard'])
   	})
   }
 

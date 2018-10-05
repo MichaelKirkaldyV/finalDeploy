@@ -26,7 +26,7 @@ module.exports = {
                             req.session.userid = user._id;
                             //check if the user is logged in
                             req.session.isloggedin = true;
-                            console.log("Here is your session ID.")
+                            console.log("Here is your session ID.", req.session.userid)
                             res.json(req.session.userid)
                         } 
                         else {
@@ -61,8 +61,8 @@ module.exports = {
                     res.json(err)
                 }
                 else {
+                    console.log('successfully added a user!')
                     console.log(data);
-                    console.log('successfully added a user!');
                     res.json(data)
                 }
                 }); //end of save
